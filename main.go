@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
 	"github.com/fatih/color"
 	"io/ioutil"
 	"net/http"
@@ -27,14 +26,6 @@ var (
 
 func main() {
 
-	loginResponse := sendLoginRequest(username, "password", token)
-	res, err := ioutil.ReadAll(loginResponse.Body)
-	if err != nil {
-		red(err.Error())
-	}
-	fmt.Println(string(res))
-	red(loginResponse.Status)
-	compareResponse(loginResponse, "/accounts/login/")
 	password := getPassword()
 
 	for _, p := range password {
@@ -146,14 +137,6 @@ func getPassword() []string {
 		red(err.Error())
 	}
 	return strings.Split(string(pass), "\n")
-}
-
-// compareResponse compares responses Location header with given url
-func compareResponse(response *http.Response, url string) bool {
-	redirectURL := response.Header.Get("Location")
-	green("\"" + redirectURL + "\"")
-	// compare redirect url with given url
-	return redirectURL != url
 }
 
 // readFile reads given file and return its content
