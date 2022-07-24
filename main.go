@@ -35,9 +35,9 @@ func main() {
 		// send login request
 		loginResponse := sendLoginRequest(username, p, token)
 		// follow 302 redirect
-		redirectResponse := follow302Redirect(loginResponse)
+		//redirectResponse := follow302Redirect(loginResponse)
 		// get redirect url
-		redirectURL := redirectResponse.Header.Get("Location")
+		redirectURL := loginResponse.Header.Get("Location")
 		// if redirect url is not the login page, we have found the password
 		if !contains(redirectURL, "/accounts/login/") {
 			green("Password is: " + p)
